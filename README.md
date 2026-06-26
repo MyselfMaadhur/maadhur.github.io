@@ -1,1 +1,411 @@
-# maadhur.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC PrepHub - Your Ultimate IAS Preparation Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #d69e2e;
+            --accent-light: #ecc94b;
+            --success: #38a169;
+            --danger: #e53e3e;
+            --warning: #dd6b20;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 4px; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(26,54,93,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 0 2rem; box-shadow: var(--shadow-lg); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { display: flex; align-items: center; gap: 12px; color: white; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; }
+        .logo i { color: var(--accent); font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; padding: 0.5rem 0; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .hero { margin-top: 70px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 5rem 2rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(214,158,46,0.15) 0%, transparent 70%); border-radius: 50%; }
+        .hero-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero-content h1 span { color: var(--accent); }
+        .hero-content p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; max-width: 500px; }
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn { padding: 0.875rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: var(--accent); color: var(--primary); }
+        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(214,158,46,0.3); }
+        .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.3); }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+        .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .stat-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 1.5rem; text-align: center; transition: transform 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.15); }
+        .stat-card .number { font-size: 2.5rem; font-weight: 800; color: var(--accent); font-family: 'Playfair Display', serif; }
+        .stat-card .label { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem; }
+        .section { padding: 5rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 0.75rem; }
+        .section-header p { color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        .section-header .accent-line { width: 60px; height: 4px; background: var(--accent); margin: 1rem auto; border-radius: 2px; }
+        .exam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .exam-card { background: var(--card-bg); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow); transition: all 0.3s ease; border: 1px solid var(--border); cursor: pointer; position: relative; overflow: hidden; }
+        .exam-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); }
+        .exam-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .exam-card .icon { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+        .exam-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .exam-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem; }
+        .exam-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .exam-meta span { font-size: 0.85rem; padding: 0.25rem 0.75rem; border-radius: 20px; background: var(--bg); color: var(--text-light); }
+        .quiz-container { background: var(--card-bg); border-radius: 20px; box-shadow: var(--shadow-lg); padding: 2.5rem; max-width: 900px; margin: 0 auto; border: 1px solid var(--border); }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .quiz-progress { display: flex; align-items: center; gap: 1rem; }
+        .progress-bar { width: 200px; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 4px; transition: width 0.5s ease; }
+        .quiz-timer { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--danger); font-size: 1.1rem; }
+        .quiz-timer.warning { animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .question-box { background: var(--bg); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary); }
+        .question-box h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .question-text { font-size: 1.1rem; line-height: 1.7; }
+        .options-grid { display: grid; gap: 1rem; }
+        .option-btn { background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 1rem 1.5rem; text-align: left; cursor: pointer; transition: all 0.3s ease; font-size: 1rem; display: flex; align-items: center; gap: 1rem; }
+        .option-btn:hover { border-color: var(--primary-light); background: rgba(26,54,93,0.05); }
+        .option-btn.selected { border-color: var(--primary); background: rgba(26,54,93,0.1); }
+        .option-btn.correct { border-color: var(--success); background: rgba(56,161,105,0.1); }
+        .option-btn.wrong { border-color: var(--danger); background: rgba(229,62,62,0.1); }
+        .option-letter { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .option-btn.correct .option-letter { background: var(--success); }
+        .option-btn.wrong .option-letter { background: var(--danger); }
+        .quiz-actions { display: flex; justify-content: space-between; margin-top: 2rem; gap: 1rem; }
+        .planner-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .planner-form, .planner-result { background: var(--card-bg); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem; font-family: inherit; transition: border-color 0.3s ease; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-light); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .subject-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+        .subject-tag { padding: 0.4rem 1rem; border-radius: 20px; background: var(--bg); border: 2px solid var(--border); cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; }
+        .subject-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 10px; border-left: 3px solid var(--accent); }
+        .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 1.25rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid white; box-shadow: 0 0 0 2px var(--accent); }
+        .timeline-item h4 { color: var(--primary); font-size: 1rem; margin-bottom: 0.25rem; }
+        .timeline-item p { color: var(--text-light); font-size: 0.9rem; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+        .news-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform 0.3s ease; }
+        .news-card:hover { transform: translateY(-3px); }
+        .news-image { height: 180px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+        .news-content { padding: 1.5rem; }
+        .news-category { display: inline-block; padding: 0.25rem 0.75rem; background: rgba(214,158,46,0.15); color: var(--accent); border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .news-card h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.5rem; line-height: 1.4; }
+        .news-card p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; }
+        .news-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-light); }
+        .syllabus-container { background: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
+        .syllabus-tabs { display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; }
+        .syllabus-tab { padding: 1rem 2rem; background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text-light); cursor: pointer; white-space: nowrap; transition: all 0.3s ease; border-bottom: 3px solid transparent; }
+        .syllabus-tab:hover { color: var(--primary); background: var(--bg); }
+        .syllabus-tab.active { color: var(--primary); border-bottom-color: var(--accent); }
+        .syllabus-content { padding: 2rem; }
+        .topic-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-radius: 10px; margin-bottom: 0.5rem; transition: background 0.3s ease; }
+        .topic-item:hover { background: var(--bg); }
+        .topic-checkbox { width: 24px; height: 24px; border: 2px solid var(--border); border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; flex-shrink: 0; }
+        .topic-checkbox.checked { background: var(--success); border-color: var(--success); }
+        .topic-checkbox.checked::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: white; font-size: 0.8rem; }
+        .topic-info { flex: 1; }
+        .topic-info h4 { font-size: 1rem; color: var(--text); margin-bottom: 0.25rem; }
+        .topic-info p { font-size: 0.85rem; color: var(--text-light); }
+        .topic-progress { width: 100px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+        .topic-progress-fill { height: 100%; background: var(--success); border-radius: 3px; transition: width 0.5s ease; }
+        .motivation-section { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 20px; padding: 4rem 2rem; text-align: center; color: white; position: relative; overflow: hidden; }
+        .motivation-section::before { content: '"'; font-family: 'Playfair Display', serif; font-size: 15rem; position: absolute; top: -4rem; left: 2rem; opacity: 0.1; line-height: 1; }
+        .quote-text { font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+        .quote-author { font-size: 1.1rem; opacity: 0.8; }
+        .quote-btn { margin-top: 2rem; background: var(--accent); color: var(--primary); border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .quote-btn:hover { background: var(--accent-light); transform: translateY(-2px); }
+        .footer { background: var(--primary); color: white; padding: 3rem 2rem 1.5rem; margin-top: 4rem; }
+        .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent); }
+        .footer-section a { display: block; color: rgba(255,255,255,0.7); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.3s ease; }
+        .footer-section a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 10px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.75rem; transform: translateX(150%); transition: transform 0.4s ease; z-index: 2000; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { background: var(--success); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 2500; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal { background: white; border-radius: 20px; padding: 3rem; max-width: 500px; width: 90%; text-align: center; transform: scale(0.8); transition: transform 0.3s ease; }
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .modal h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .modal-score { font-size: 3rem; font-weight: 800; color: var(--accent); margin: 1rem 0; }
+        .modal p { color: var(--text-light); margin-bottom: 1.5rem; }
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3000; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) { .hero-container { grid-template-columns: 1fr; text-align: center; } .hero-content p { margin: 0 auto 2rem; } .hero-btns { justify-content: center; } .hero-stats { max-width: 500px; margin: 0 auto; } .planner-container { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: var(--primary); flex-direction: column; padding: 1rem 2rem; gap: 0; } .nav-links.show { display: flex; } .nav-links a { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); } .mobile-menu-btn { display: block; } .hero-content h1 { font-size: 2.2rem; } .section-header h2 { font-size: 1.8rem; } .quiz-actions { flex-direction: column; } .quiz-actions .btn { width: 100%; justify-content: center; } }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo"><i class="fas fa-landmark"></i> UPSC PrepHub</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#exams">Exams</a></li>
+            <li><a href="#quiz">Daily Quiz</a></li>
+            <li><a href="#planner">Study Planner</a></li>
+            <li><a href="#current-affairs">Current Affairs</a></li>
+            <li><a href="#syllabus">Syllabus</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>Master Your <span>UPSC</span> Journey</h1>
+            <p>Comprehensive preparation platform for India's most prestigious civil services examination. Study smarter, track progress, and achieve your IAS dream.</p>
+            <div class="hero-btns">
+                <a href="#quiz" class="btn btn-primary"><i class="fas fa-play"></i> Start Daily Quiz</a>
+                <a href="#planner" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> Create Study Plan</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-card"><div class="number" id="statQuestions">0</div><div class="label">Practice Questions</div></div>
+            <div class="stat-card"><div class="number" id="statStudents">0</div><div class="label">Active Aspirants</div></div>
+            <div class="stat-card"><div class="number" id="statSuccess">0%</div><div class="label">Success Rate</div></div>
+            <div class="stat-card"><div class="number" id="statMentors">0</div><div class="label">Expert Mentors</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="exams">
+    <div class="section-header fade-in">
+        <h2>UPSC Examinations</h2>
+        <div class="accent-line"></div>
+        <p>Explore the various examinations conducted by the Union Public Service Commission</p>
+    </div>
+    <div class="exam-grid">
+        <div class="exam-card fade-in" onclick="showToast('Civil Services Exam details coming soon!')">
+            <div class="icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"><i class="fas fa-user-tie" style="color: white;"></i></div>
+            <h3>Civil Services Examination (CSE)</h3>
+            <p>The most prestigious exam for recruitment to IAS, IPS, IFS, and other Group A & B services.</p>
+            <div class="exam-meta"><span><i class="fas fa-calendar"></i> Prelims: June 2025</span><span><i class="fas fa-clock"></i> 3 Stages</span></div>
+        </div>
+        <div class="exam-card fade-in" onclick="showToast('NDA details coming soon!')">
+            <div class="icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"><i class="fas fa-shield-alt" style="color: white;"></i></div>
+            <h3>NDA & NA Examination</h3>
+            <p>Entry into the National Defence Academy and Naval Academy for defence services.</p>
+            <div class="exam-meta"><span><i class="fas fa-calendar"></i> Twice Yearly</span><span><i class="fas fa-clock"></i> 2 Papers</span></div>
+        </div>
+        <div class="exam-card fade-in" onclick="showToast('CDS details coming soon!')">
+            <div class="icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"><i class="fas fa-fighter-jet" style="color: white;"></i></div>
+            <h3>CDS Examination</h3>
+            <p>Combined Defence Services exam for Indian Military Academy, OTA, Air Force & Navy.</p>
+            <div class="exam-meta"><span><i class="fas fa-calendar"></i> Twice Yearly</span><span><i class="fas fa-clock"></i> 3 Papers</span></div>
+        </div>
+        <div class="exam-card fade-in" onclick="showToast('CAPF details coming soon!')">
+            <div class="icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"><i class="fas fa-hard-hat" style="color: white;"></i></div>
+            <h3>CAPF (AC) Examination</h3>
+            <p>Central Armed Police Forces Assistant Commandant recruitment exam.</p>
+            <div class="exam-meta"><span><i class="fas fa-calendar"></i> Once Yearly</span><span><i class="fas fa-clock"></i> 2 Papers</span></div>
+        </div>
+        <div class="exam-card fade-in" onclick="showToast('IES details coming soon!')">
+            <div class="icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"><i class="fas fa-cogs" style="color: white;"></i></div>
+            <h3>Engineering Services (ESE)</h3>
+            <p>Indian Engineering Services for technical managerial posts in government.</p>
+            <div class="exam-meta"><span><i class="fas fa-calendar"></i> Once Yearly</span><span><i class="fas fa-clock"></i> 3 Stages</span></div>
+        </div>
+        <div class="exam-card fade-in" onclick="showToast('CMS details coming soon!')">
+            <div class="icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"><i class="fas fa-stethoscope" style="color: #2d3748;"></i></div>
+            <h3>Combined Medical Services</h3>
+            <p>Medical officer recruitment for various government health services.</p>
+            <div class="exam-meta"><span><i class="fas fa-calendar"></i> Once Yearly</span><span><i class="fas fa-clock"></i> 2 Papers</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="quiz" style="background: linear-gradient(180deg, var(--bg) 0%, white 100%);">
+    <div class="section-header fade-in">
+        <h2>Daily Quiz Challenge</h2>
+        <div class="accent-line"></div>
+        <p>Test your knowledge with UPSC-level questions updated daily</p>
+    </div>
+    <div class="quiz-container fade-in">
+        <div class="quiz-header">
+            <div class="quiz-progress">
+                <span>Question <strong id="currentQ">1</strong> of <strong id="totalQ">10</strong></span>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 10%"></div></div>
+            </div>
+            <div class="quiz-timer" id="quizTimer"><i class="fas fa-clock"></i><span id="timerDisplay">02:00</span></div>
+        </div>
+        <div class="question-box">
+            <h3><i class="fas fa-question-circle"></i> Question</h3>
+            <p class="question-text" id="questionText">Loading question...</p>
+        </div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="quiz-actions">
+            <button class="btn btn-outline" id="prevBtn" onclick="prevQuestion()" style="display:none;"><i class="fas fa-arrow-left"></i> Previous</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Next <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-primary" id="submitBtn" onclick="submitQuiz()" style="display:none;"><i class="fas fa-check"></i> Submit Quiz</button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="planner">
+    <div class="section-header fade-in">
+        <h2>Smart Study Planner</h2>
+        <div class="accent-line"></div>
+        <p>Generate a personalized study schedule based on your exam date and subjects</p>
+    </div>
+    <div class="planner-container fade-in">
+        <div class="planner-form">
+            <h3 style="margin-bottom:1.5rem;color:var(--primary);"><i class="fas fa-sliders-h"></i> Your Preferences</h3>
+            <div class="form-group"><label>Target Exam</label><select id="targetExam"><option value="cse">Civil Services (CSE)</option><option value="nda">NDA & NA</option><option value="cds">CDS</option><option value="capf">CAPF (AC)</option><option value="ese">Engineering Services</option></select></div>
+            <div class="form-group"><label>Exam Date</label><input type="date" id="examDate" value="2025-06-15"></div>
+            <div class="form-group"><label>Study Hours Per Day</label><input type="range" id="studyHours" min="2" max="12" value="6" oninput="document.getElementById('hoursValue').textContent=this.value"><div style="text-align:center;margin-top:0.5rem;font-weight:600;color:var(--primary);"><span id="hoursValue">6</span> hours/day</div></div>
+            <div class="form-group"><label>Select Subjects</label><div class="subject-tags" id="subjectTags"><span class="subject-tag active" data-subject="history">History</span><span class="subject-tag active" data-subject="geography">Geography</span><span class="subject-tag active" data-subject="polity">Polity</span><span class="subject-tag" data-subject="economy">Economy</span><span class="subject-tag active" data-subject="science">Science</span><span class="subject-tag" data-subject="environment">Environment</span><span class="subject-tag" data-subject="current-affairs">Current Affairs</span><span class="subject-tag" data-subject="ethics">Ethics</span></div></div>
+            <button class="btn btn-primary" style="width:100%;margin-top:1rem;" onclick="generatePlan()"><i class="fas fa-magic"></i> Generate Study Plan</button>
+        </div>
+        <div class="planner-result" id="plannerResult">
+            <h3 style="margin-bottom:1.5rem;color:var(--primary);"><i class="fas fa-calendar-check"></i> Your Schedule</h3>
+            <div class="timeline" id="studyTimeline"><div class="timeline-item"><h4>Welcome!</h4><p>Fill in your preferences and click "Generate Study Plan" to see your personalized schedule.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="current-affairs" style="background: white;">
+    <div class="section-header fade-in">
+        <h2>Current Affairs</h2>
+        <div class="accent-line"></div>
+        <p>Stay updated with the latest news relevant for UPSC preparation</p>
+    </div>
+    <div class="news-grid" id="newsGrid"></div>
+</section>
+
+<section class="section" id="syllabus">
+    <div class="section-header fade-in">
+        <h2>Syllabus Tracker</h2>
+        <div class="accent-line"></div>
+        <p>Track your progress through the UPSC syllabus topic by topic</p>
+    </div>
+    <div class="syllabus-container fade-in">
+        <div class="syllabus-tabs">
+            <button class="syllabus-tab active" onclick="switchTab('gs1',this)">GS Paper I</button>
+            <button class="syllabus-tab" onclick="switchTab('gs2',this)">GS Paper II</button>
+            <button class="syllabus-tab" onclick="switchTab('gs3',this)">GS Paper III</button>
+            <button class="syllabus-tab" onclick="switchTab('gs4',this)">GS Paper IV</button>
+            <button class="syllabus-tab" onclick="switchTab('optional',this)">Optional</button>
+        </div>
+        <div class="syllabus-content" id="syllabusContent"></div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="motivation-section fade-in">
+        <div class="quote-text" id="quoteText">"The future belongs to those who believe in the beauty of their dreams."</div>
+        <div class="quote-author" id="quoteAuthor">— Eleanor Roosevelt</div>
+        <button class="quote-btn" onclick="newQuote()"><i class="fas fa-sync-alt"></i> New Quote</button>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section"><h3><i class="fas fa-landmark"></i> UPSC PrepHub</h3><p style="color:rgba(255,255,255,0.7);margin-top:0.5rem;">Your trusted companion for civil services preparation. Empowering aspirants since 2024.</p></div>
+        <div class="footer-section"><h3>Quick Links</h3><a href="#exams">Examinations</a><a href="#quiz">Daily Quiz</a><a href="#planner">Study Planner</a><a href="#syllabus">Syllabus Tracker</a></div>
+        <div class="footer-section"><h3>Resources</h3><a href="#">Previous Year Papers</a><a href="#">NCERT Books</a><a href="#">Standard Books</a><a href="#">Mock Tests</a></div>
+        <div class="footer-section"><h3>Connect</h3><a href="#"><i class="fab fa-youtube"></i> YouTube Channel</a><a href="#"><i class="fab fa-telegram"></i> Telegram Group</a><a href="#"><i class="fab fa-instagram"></i> Instagram</a><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 UPSC PrepHub. Made with <i class="fas fa-heart" style="color:var(--accent);"></i> for India's future civil servants.</p></div>
+</footer>
+
+<div class="toast" id="toast"><i class="fas fa-info-circle"></i><span id="toastMessage">Message</span></div>
+
+<div class="modal-overlay" id="resultModal">
+    <div class="modal">
+        <div class="modal-icon" id="modalIcon">🎉</div>
+        <h2 id="modalTitle">Quiz Complete!</h2>
+        <div class="modal-score" id="modalScore">8/10</div>
+        <p id="modalMessage">Great job! Keep practicing to improve your score.</p>
+        <button class="btn btn-primary" onclick="closeModal()" style="margin-top:1rem;"><i class="fas fa-redo"></i> Try Again</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {question:"Which article of the Indian Constitution deals with the appointment and term of office of the Governor?",options:["Article 153","Article 154","Article 155","Article 156"],correct:2,explanation:"Article 155 deals with the appointment of Governor."},
+    {question:"The 'Blue Revolution' in India is related to:",options:["Information Technology","Fisheries Development","Space Technology","Nuclear Energy"],correct:1,explanation:"The Blue Revolution refers to the significant growth in aquaculture and fisheries production."},
+    {question:"Which of the following is NOT a member of the G20?",options:["Spain","Argentina","Saudi Arabia","Turkey"],correct:0,explanation:"Spain is not a member of the G20."},
+    {question:"The Tropic of Cancer passes through how many Indian states?",options:["6","7","8","9"],correct:2,explanation:"The Tropic of Cancer passes through 8 Indian states."},
+    {question:"Who was the first woman President of the Indian National Congress?",options:["Sarojini Naidu","Annie Besant","Indira Gandhi","Vijaya Lakshmi Pandit"],correct:1,explanation:"Annie Besant was the first woman President of the INC in 1917."},
+    {question:"The 'Duncan Passage' is located between:",options:["India and Sri Lanka","South Andaman and Little Andaman","Lakshadweep and Maldives","India and Myanmar"],correct:1,explanation:"Duncan Passage is situated between South Andaman and Little Andaman."},
+    {question:"Which Five Year Plan had the objective of 'Garibi Hatao'?",options:["Third Plan","Fourth Plan","Fifth Plan","Sixth Plan"],correct:2,explanation:"The Fifth Five Year Plan (1974-79) had the main objective of 'Garibi Hatao'."},
+    {question:"The 'Konark Sun Temple' is located in which state?",options:["West Bengal","Odisha","Karnataka","Andhra Pradesh"],correct:1,explanation:"The Konark Sun Temple is a 13th-century temple located in Odisha."},
+    {question:"Which is the largest river basin in India?",options:["Godavari","Krishna","Ganga","Yamuna"],correct:2,explanation:"The Ganga river basin is the largest in India, covering about 26% of the country's area."},
+    {question:"The 'Saka Era' used in the Indian national calendar begins in which year?",options:["78 AD","58 BC","320 AD","185 BC"],correct:0,explanation:"The Saka Era begins in 78 AD."}
+];
+
+let currentQuestion=0,score=0,selectedOption=-1,answers=new Array(quizData.length).fill(-1),timerInterval,timeLeft=120,quizSubmitted=false;
+
+document.addEventListener('DOMContentLoaded',function(){initQuiz();initSyllabus();initNews();initSubjectTags();initScrollAnimations();initNavigation();animateCounters();});
+
+function initQuiz(){document.getElementById('totalQ').textContent=quizData.length;loadQuestion();startTimer();}
+function loadQuestion(){const q=quizData[currentQuestion];document.getElementById('currentQ').textContent=currentQuestion+1;document.getElementById('questionText').textContent=q.question;const grid=document.getElementById('optionsGrid');grid.innerHTML='';q.options.forEach((opt,idx)=>{const btn=document.createElement('button');btn.className='option-btn';if(answers[currentQuestion]===idx)btn.classList.add('selected');if(quizSubmitted){if(idx===q.correct)btn.classList.add('correct');else if(answers[currentQuestion]===idx&&idx!==q.correct)btn.classList.add('wrong');}btn.innerHTML='<span class="option-letter">'+String.fromCharCode(65+idx)+'</span><span>'+opt+'</span>';btn.onclick=()=>selectOption(idx);grid.appendChild(btn);});updateProgress();updateButtons();if(!quizSubmitted){timeLeft=120;startTimer();}}
+function selectOption(idx){if(quizSubmitted)return;answers[currentQuestion]=idx;selectedOption=idx;loadQuestion();}
+function nextQuestion(){if(currentQuestion<quizData.length-1){currentQuestion++;loadQuestion();}}
+function prevQuestion(){if(currentQuestion>0){currentQuestion--;loadQuestion();}}
+function updateProgress(){const pct=((currentQuestion+1)/quizData.length)*100;document.getElementById('progressFill').style.width=pct+'%';}
+function updateButtons(){document.getElementById('prevBtn').style.display=currentQuestion===0?'none':'inline-flex';document.getElementById('nextBtn').style.display=currentQuestion===quizData.length-1?'none':'inline-flex';document.getElementById('submitBtn').style.display=currentQuestion===quizData.length-1?'inline-flex':'none';}
+function startTimer(){clearInterval(timerInterval);const timerDisplay=document.getElementById('timerDisplay');const timerEl=document.getElementById('quizTimer');timerInterval=setInterval(()=>{timeLeft--;const mins=Math.floor(timeLeft/60);const secs=timeLeft%60;timerDisplay.textContent=String(mins).padStart(2,'0')+':'+String(secs).padStart(2,'0');if(timeLeft<=30)timerEl.classList.add('warning');else timerEl.classList.remove('warning');if(timeLeft<=0){clearInterval(timerInterval);if(currentQuestion<quizData.length-1)nextQuestion();else submitQuiz();}},1000);}
+function submitQuiz(){clearInterval(timerInterval);quizSubmitted=true;score=0;answers.forEach((ans,idx)=>{if(ans===quizData[idx].correct)score++;});const pct=Math.round((score/quizData.length)*100);document.getElementById('modalScore').textContent=score+'/'+quizData.length;let message,icon;if(pct>=80){message="Excellent! You're well prepared for UPSC!";icon="🏆";fireConfetti();}else if(pct>=60){message="Good job! Keep practicing to improve further.";icon="🌟";}else if(pct>=40){message="Not bad! Focus on your weak areas and try again.";icon="📚";}else{message="Keep studying! Consistency is the key to success.";icon="💪";}document.getElementById('modalMessage').textContent=message;document.getElementById('modalIcon').textContent=icon;document.getElementById('resultModal').classList.add('show');loadQuestion();}
+function closeModal(){document.getElementById('resultModal').classList.remove('show');resetQuiz();}
+function resetQuiz(){currentQuestion=0;score=0;selectedOption=-1;answers=new Array(quizData.length).fill(-1);quizSubmitted=false;timeLeft=120;loadQuestion();startTimer();}
+
+function initSubjectTags(){document.querySelectorAll('.subject-tag').forEach(tag=>{tag.addEventListener('click',function(){this.classList.toggle('active');});});}
+function generatePlan(){const exam=document.getElementById('targetExam').value;const date=new Date(document.getElementById('examDate').value);const hours=document.getElementById('studyHours').value;const subjects=Array.from(document.querySelectorAll('.subject-tag.active')).map(t=>t.dataset.subject);if(subjects.length===0){showToast('Please select at least one subject!');return;}const today=new Date();const daysLeft=Math.ceil((date-today)/(1000*60*60*24));const timeline=document.getElementById('studyTimeline');timeline.innerHTML='';const phases=[{name:'Foundation Phase',weeks:4,desc:'Build strong basics in '+subjects.slice(0,3).join(', ')+'. Focus on NCERTs and basic concepts.'},{name:'Core Preparation',weeks:8,desc:'Deep dive into standard books. Target '+hours+' hours daily. Cover '+subjects.join(', ')+'.'},{name:'Revision & Tests',weeks:4,desc:'Revise all subjects. Take daily mock tests and analyze mistakes.'},{name:'Final Sprint',weeks:2,desc:'Focus on current affairs, answer writing practice, and previous year papers.'}];phases.forEach((phase,i)=>{const item=document.createElement('div');item.className='timeline-item';item.innerHTML='<h4>Phase '+(i+1)+': '+phase.name+' ('+phase.weeks+' weeks)</h4><p>'+phase.desc+'</p>';timeline.appendChild(item);});const summary=document.createElement('div');summary.className='timeline-item';summary.style.borderLeftColor='var(--success)';summary.innerHTML='<h4>📊 Study Summary</h4><p><strong>'+daysLeft+'</strong> days remaining | <strong>'+hours+'</strong> hrs/day | <strong>'+subjects.length+'</strong> subjects | Total: <strong>'+(daysLeft*hours)+'</strong> study hours</p>';timeline.appendChild(summary);showToast('Study plan generated successfully!');}
+
+const newsData=[{category:'Polity',icon:'fa-landmark',title:'Supreme Court Upholds EWS Quota',desc:'The Supreme Court upheld the 103rd Constitutional Amendment providing 10% reservation for Economically Weaker Sections.',date:'2 days ago'},{category:'Economy',icon:'fa-chart-line',title:"India's GDP Growth at 7.2%",desc:"India's economy grew at 7.2% in the last quarter, making it the fastest-growing major economy in the world.",date:'3 days ago'},{category:'Science',icon:'fa-rocket',title:"ISRO's New Satellite Launch",desc:'ISRO successfully launched the GSAT-24 communication satellite, enhancing broadband connectivity across India.',date:'5 days ago'},{category:'Environment',icon:'fa-leaf',title:'COP29 Climate Summit Outcomes',desc:'New climate finance targets were set at COP29, with developed nations committing to increased funding.',date:'1 week ago'},{category:'International',icon:'fa-globe',title:'India-ASEAN Summit 2025',desc:'India and ASEAN nations signed new trade agreements and cooperation pacts during the annual summit.',date:'1 week ago'},{category:'Defence',icon:'fa-shield-alt',title:'New Defence Acquisition Policy',desc:'Government announced updated Defence Acquisition Procedure focusing on indigenous manufacturing.',date:'2 weeks ago'}];
+function initNews(){const grid=document.getElementById('newsGrid');newsData.forEach(news=>{const card=document.createElement('div');card.className='news-card fade-in';card.innerHTML='<div class="news-image"><i class="fas '+news.icon+'"></i></div><div class="news-content"><span class="news-category">'+news.category+'</span><h3>'+news.title+'</h3><p>'+news.desc+'</p><div class="news-meta"><span><i class="far fa-clock"></i> '+news.date+'</span><span><i class="far fa-bookmark"></i> Save</span></div></div>';grid.appendChild(card);});}
+
+const syllabusData={gs1:[{topic:'Indian Heritage & Culture',sub:'Art Forms, Literature, Architecture',progress:65},{topic:'Modern Indian History',sub:'Freedom Struggle, Important Events',progress:80},{topic:'World History',sub:'Industrial Revolution, World Wars, Decolonization',progress:45},{topic:'Indian Society',sub:'Diversity, Social Issues, Women Empowerment',progress:70},{topic:'Geography',sub:'Physical, Human, Indian Geography',progress:55},{topic:'Disaster Management',sub:'Natural Disasters, Mitigation Strategies',progress:30}],gs2:[{topic:'Indian Constitution',sub:'Historical Background, Features, Amendments',progress:85},{topic:'Polity',sub:'Parliament, Judiciary, Executive',progress:75},{topic:'International Relations',sub:'Bilateral, Regional, Global Groupings',progress:60},{topic:'Social Justice',sub:'Government Schemes, Vulnerable Sections',progress:50},{topic:'Governance',sub:'E-Governance, RTI, Citizen Charter',progress:65}],gs3:[{topic:'Indian Economy',sub:'Planning, Budgeting, Inclusive Growth',progress:70},{topic:'Agriculture',sub:'Cropping Patterns, Technology, Land Reforms',progress:55},{topic:'Science & Technology',sub:'IT, Space, Biotechnology, Nanotech',progress:60},{topic:'Environment',sub:'Biodiversity, Climate Change, Conservation',progress:75},{topic:'Internal Security',sub:'Terrorism, Cyber Security, Border Management',progress:40}],gs4:[{topic:'Ethics & Human Interface',sub:'Essence, Determinants, Consequences',progress:50},{topic:'Attitude',sub:'Content, Structure, Function, Moral Influence',progress:45},{topic:'Aptitude & Values',sub:'Civil Service Values, Integrity, Impartiality',progress:60},{topic:'Emotional Intelligence',sub:'Concepts, Utilities, Application',progress:70},{topic:'Contributions of Thinkers',sub:'Indian & Western Moral Philosophers',progress:35}],optional:[{topic:'Paper I - Theory',sub:'Core concepts and theoretical frameworks',progress:40},{topic:'Paper II - Application',sub:'Case studies and applied knowledge',progress:25},{topic:'Previous Year Analysis',sub:'Trend analysis and important topics',progress:55},{topic:'Mock Tests',sub:'Practice tests and evaluation',progress:30}]};
+let checkedTopics={};
+function initSyllabus(){switchTab('gs1',document.querySelector('.syllabus-tab'));}
+function switchTab(tab,el){document.querySelectorAll('.syllabus-tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');const content=document.getElementById('syllabusContent');content.innerHTML='';const topics=syllabusData[tab];topics.forEach((topic,idx)=>{const item=document.createElement('div');item.className='topic-item';const isChecked=checkedTopics[tab+'-'+idx]||false;item.innerHTML='<div class="topic-checkbox '+(isChecked?'checked':'')+'" onclick="toggleTopic(this,\''+tab+'\','+idx+')"></div><div class="topic-info"><h4>'+topic.topic+'</h4><p>'+topic.sub+'</p></div><div class="topic-progress"><div class="topic-progress-fill" style="width:'+topic.progress+'%"></div></div>';content.appendChild(item);});}
+function toggleTopic(el,tab,idx){el.classList.toggle('checked');checkedTopics[tab+'-'+idx]=el.classList.contains('checked');showToast('Progress updated!');}
+
+const quotes=[{text:"The future belongs to those who believe in the beauty of their dreams.",author:"Eleanor Roosevelt"},{text:"Success is not final, failure is not fatal: it is the courage to continue that counts.",author:"Winston Churchill"},{text:"The only way to do great work is to love what you do.",author:"Steve Jobs"},{text:"Believe you can and you're halfway there.",author:"Theodore Roosevelt"},{text:"It does not matter how slowly you go as long as you do not stop.",author:"Confucius"},{text:"The secret of getting ahead is getting started.",author:"Mark Twain"},{text:"Dream big and dare to fail.",author:"Norman Vaughan"},{text:"Your time is limited, don't waste it living someone else's life.",author:"Steve Jobs"}];
+function newQuote(){const q=quotes[Math.floor(Math.random()*quotes.length)];document.getElementById('quoteText').textContent='"'+q.text+'"';document.getElementById('quoteAuthor').textContent='— '+q.author;}
+
+function showToast(msg){const toast=document.getElementById('toast');const msgEl=document.getElementById('toastMessage');msgEl.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3000);}
+
+function initScrollAnimations(){const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');});},{threshold:0.1});document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));}
+
+function initNavigation(){const mobileBtn=document.getElementById('mobileMenuBtn');const navLinks=document.getElementById('navLinks');mobileBtn.addEventListener('click',()=>{navLinks.classList.toggle('show');});document.querySelectorAll('.nav-links a').forEach(link=>{link.addEventListener('click',function(){document.querySelectorAll('.nav-links a').forEach(l=>l.classList.remove('active'));this.classList.add('active');navLinks.classList.remove('show');});});window.addEventListener('scroll',()=>{const sections=document.querySelectorAll('section[id]');const scrollY=window.scrollY;sections.forEach(section=>{const sectionHeight=section.offsetHeight;const sectionTop=section.offsetTop-100;const sectionId=section.getAttribute('id');if(scrollY>sectionTop&&scrollY<=sectionTop+sectionHeight){document.querySelectorAll('.nav-links a').forEach(link=>{link.classList.remove('active');if(link.getAttribute('href')==='#'+sectionId)link.classList.add('active');});}});});}
+
+function animateCounters(){const counters=[{id:'statQuestions',target:5000,suffix:'+'},{id:'statStudents',target:250,suffix:'K+'},{id:'statSuccess',target:98,suffix:'%'},{id:'statMentors',target:150,suffix:'+'}];counters.forEach(c=>{const el=document.getElementById(c.id);let current=0;const increment=c.target/50;const timer=setInterval(()=>{current+=increment;if(current>=c.target){current=c.target;clearInterval(timer);}el.textContent=Math.floor(current)+c.suffix;},30);});}
+
+function fireConfetti(){const canvas=document.getElementById('confetti-canvas');const ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;const particles=[];const colors=['#d69e2e','#1a365d','#38a169','#e53e3e','#dd6b20','#ecc94b'];for(let i=0;i<150;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-100,vx:(Math.random()-0.5)*6,vy:Math.random()*4+2,color:colors[Math.floor(Math.random()*colors.length)],size:Math.random()*8+4,rotation:Math.random()*360,rotationSpeed:(Math.random()-0.5)*10});}let animationId;function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);let activeParticles=0;particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rotation+=p.rotationSpeed;p.vy+=0.1;if(p.y<canvas.height){activeParticles++;ctx.save();ctx.translate(p.x,p.y);ctx.rotate((p.rotation*Math.PI)/180);ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);ctx.restore();}});if(activeParticles>0){animationId=requestAnimationFrame(animate);}else{cancelAnimationFrame(animationId);}}animate();}
+</script>
+</body>
+</html># maadhur.github.io
